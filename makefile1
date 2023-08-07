@@ -1,0 +1,5 @@
+test : main_crc.o crc.o 
+	gcc -o test main_crc.o crc.o
+
+clean : 
+	rm *.o test
