@@ -1,1 +1,0 @@
-void hashmap_init();

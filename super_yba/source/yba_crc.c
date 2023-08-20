@@ -1,12 +1,13 @@
 /***
- * crc.c
+ * yba_crc.c
  * yanbrilley
  * 2023-08-06
 ***/
 
 #include <stdio.h>
 
-#include "crc.h"
+#include "yba_common.h"
+#include "yba_crc.h"
 
 typedef enum 
 {
@@ -20,7 +21,7 @@ typedef enum
 
 } REFLECTED_MODE;
 
-uint32 reflected_data(uint32 data, REFLECTED_MODE mode)
+YBA_UINT32 reflected_data(YBA_UINT32 data, REFLECTED_MODE mode)
 {
   data = ((data & 0xffff0000) >> 16) | ((data & 0x0000ffff) << 16);
   data = ((data & 0xff00ff00) >> 8) | ((data & 0x00ff00ff) << 8);
@@ -48,10 +49,10 @@ uint32 reflected_data(uint32 data, REFLECTED_MODE mode)
   return 0;
 }
 
-uint32 check_crc32(uint32 poly, uint32 init, uint8 refIn, uint8 refOut, uint32 xorOut, const uint8 *buffer, uint32 length)
+YBA_UINT32 check_crc32(YBA_UINT32 poly, YBA_UINT32 init, YBA_UINT8 refIn, YBA_UINT8 refOut, YBA_UINT32 xorOut, const YBA_UINT8 *buffer, YBA_UINT32 length)
 {
-  uint32 i = 0;
-  uint32 crc = init;
+  YBA_UINT8 i = 0;
+  YBA_UINT32 crc = init;
   
   while (length > 0) 
   {
@@ -87,7 +88,7 @@ uint32 check_crc32(uint32 poly, uint32 init, uint8 refIn, uint8 refOut, uint32 x
   return crc ^ xorOut;
 }
 
-uint32 crc_check(CRC_Type crcType, const uint8 *buffer, uint32 length)
+YBA_UINT32 crc_check(CRC_Type crcType, const YBA_UINT8 *buffer, YBA_UINT32 length)
 {
   check_crc32(crcType.poly, crcType.init, crcType.refIn, crcType.refOut, crcType.xorOut, buffer, length);
 }
