@@ -1,5 +1,5 @@
 TARGET = test
-OBJS = main_crc.o crc.o
+OBJS = main_crc.o crc.o hashmap.o
 CC = gcc
 
 $(TARGET) : $(OBJS)

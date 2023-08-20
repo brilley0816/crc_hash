@@ -9,6 +9,8 @@
 #include "common.h"
 #include "crc.h"
 
+#include "hashmap.h"
+
 #define LENGTH 8
 
 const uint8 data[3][LENGTH] = 
@@ -39,6 +41,6 @@ void main()
   {
     printf("%08x\t%08x\r\n", crc_check(crc32.crcType, data[i], LENGTH), crc32.result[i]);
   }
-
+  hashmap_init();
 }
 
